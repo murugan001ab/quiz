@@ -1,0 +1,65 @@
+
+[
+      {
+        "id": 1,
+        "question": "What is the capital of France?",
+        "options": ["Berlin", "Madrid", "Paris", "Rome"],
+        "correct_answer": "Paris"
+      },
+     {
+        "id": 2,
+        "question": "Which planet is known as the Red Planet?",
+        "options": ["Earth", "Mars", "Jupiter", "Venus"],
+        "correct_answer": "Mars"
+      },
+      {
+        "id": 3,
+        "question": "Who wrote 'Hamlet'?",
+        "options": ["Charles Dickens", "William Shakespeare", "Jane Austen", "Mark Twain"],
+        "correct_answer": "William Shakespeare"
+      },
+      {
+        "id": 4,
+        "question": "What is the square root of 64?",
+        "options": ["6", "7", "8", "9"],
+        "correct_answer": "8"
+      },
+      {
+        "id": 5,
+        "question": "Which gas do plants absorb from the atmosphere?",
+        "options": ["Oxygen", "Carbon Dioxide", "Nitrogen", "Hydrogen"],
+        "correct_answer": "Carbon Dioxide"
+      },
+      {
+        "id": 6,
+        "question": "What is the largest ocean on Earth?",
+        "options": ["Atlantic Ocean", "Indian Ocean", "Pacific Ocean", "Arctic Ocean"],
+        "correct_answer": "Pacific Ocean"
+      },
+      {
+        "id": 7,
+        "question": "Who discovered gravity?",
+        "options": ["Albert Einstein", "Isaac Newton", "Galileo Galilei", "Nikola Tesla"],
+        "correct_answer": "Isaac Newton"
+      },
+      {
+        "id": 8,
+        "question": "What is the chemical symbol for Gold?",
+        "options": ["Ag", "Au", "Pb", "Fe"],
+        "correct_answer": "Au"
+      },
+      {
+        "id": 9,
+        "question": "How many continents are there on Earth?",
+        "options": ["5", "6", "7", "8"],
+        "correct_answer": "7"
+      },
+      {
+        "id": 10,
+        "question": "What is the boiling point of water at sea level?",
+        "options": ["90°C", "100°C", "110°C", "120°C"],
+        "correct_answer": "100°C"
+      }
+    ]
+
+  
