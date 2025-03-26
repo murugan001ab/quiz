@@ -80,12 +80,17 @@ button:hover {
   background-color: tomato;
   color: white;
   position: absolute;
-  right: 30px;
+  right: 700px;
 }
 
 @media(max-width:780px){
   .quiz{
     margin: 100px;
   }
-  
+  .skip{
+    background-color: tomato;
+    color: white;
+    position: absolute;
+    right: 30px;
+  }
 }
