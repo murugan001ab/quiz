@@ -82,7 +82,7 @@ button:hover {
   position: absolute;
 }
 
-@media(max-width:380px){
+@media(max-width:780px){
   body{
     background-color: red;
   }
