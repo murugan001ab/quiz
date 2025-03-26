@@ -80,6 +80,11 @@ button:hover {
   background-color: tomato;
   color: white;
   position: absolute;
-  right:700px;
+}
 
+@media(max-width:380px){
+  body{
+    background-color: red;
+  }
+  
 }
