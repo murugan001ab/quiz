@@ -22,7 +22,8 @@ useEffect(() => {
     try {
       const data = await fetchQuestions(); // Fetch questions
       if (data) {
-        setQuetions(data); // Set questions if data is available
+        setQuetions(data); 
+        console.log(data)// Set questions if data is available
       }
     } catch (error) {
       console.error("Error fetching questions:", error); // Log the error
