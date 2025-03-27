@@ -139,7 +139,7 @@ const handlyReset=()=>{
       ))}
       </div>  
       <p>Time left {timer}s</p>
-      <button className='skip'onClick={handlySkip} >skip</button>
+      {/* <button className='skip'onClick={handlySkip} >skip</button> */}
    
       </div>  
 
