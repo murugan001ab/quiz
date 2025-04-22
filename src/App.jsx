@@ -180,7 +180,7 @@ function App() {
               <p className='s'>Your score is {score}/{questions.length}</p>
 
               {!timeUp && <p className="info">
-                ⏳ Please wait until others finish <span className='t'>{timeLeft}s</span></p>}
+                ⏳ Please wait until others finish <span className='t'>{timeLeft}</span>s</p>}
 
               <button
                 onClick={handleResult}
