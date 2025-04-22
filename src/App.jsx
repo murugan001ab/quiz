@@ -177,10 +177,10 @@ function App() {
           
           ) : show ? (
             <div className="score">
-              <p>Your score is {score}/{questions.length}</p>
+              <p className='s'>Your score is {score}/{questions.length}</p>
 
               {!timeUp && <p className="info">
-                ⏳ Please wait until others finish {timeLeft}</p>}
+                ⏳ Please wait until others finish <span className='t'>{timeLeft}s</span></p>}
 
               <button
                 onClick={handleResult}
@@ -194,15 +194,15 @@ function App() {
             <div className="quiz">
               <div className="question">
                 <div className="q">
-                  <p>Question {questions[currentQuestion].id}</p>
-                  <h3>{questions[currentQuestion].question_text}</h3>
+                  <p className='qn'>Question {questions[currentQuestion].id}</p>
+                  <h3 className='qq'>{questions[currentQuestion].question_text}</h3>
                 </div>
                 <div className="option">
                   {questions[currentQuestion].options.map((option, index) => (
                     <button key={index} onClick={() => handleQuestion(option)}>{option}</button>
                   ))}
                 </div>
-                <p>⏳ Current Question Time: {timer}s</p>
+                <p>⏳ Current Question Time: <span className='t'>{timer}</span>s</p>
                 {/* <p>🕔 Total Quiz Time Left: {timeLeft}s</p> */}
                 <button className="skip" onClick={handleSkip}>Skip</button>
               </div>
