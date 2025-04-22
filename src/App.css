@@ -135,3 +135,248 @@ button:hover {
     right: 10px;
   }
 }
+
+.results {
+  max-width: 500px;
+  margin: 50% auto;
+  padding: 20px;
+  border-radius: 12px;
+  background-color: #f0f4ff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  text-align: center;
+  color: #005fcc;
+}
+
+.score-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+
+}
+
+.score-list:first-child{
+  background-color: green;
+  color: white;
+}
+
+.score-card {
+  background: white;
+  margin-bottom: 10px;
+  padding: 15px 20px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  justify-content: space-between;
+  transition: 0.3s ease;
+ 
+  
+}
+
+.score-card:hover {
+  transform: scale(1.02);
+  background-color: #e9f2ff;
+
+}
+
+
+
+.rank {
+  font-weight: bold;
+  font-size: 18px;
+  color: #0077ff;
+  margin-right: 10px;
+}
+
+.score-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.username {
+  font-size: 16px;
+  font-weight: 600;
+  color: #34495e;
+}
+
+.points {
+  font-size: 14px;
+  color: #444;
+}
+.see-more {
+  margin-top: 15px;
+  padding: 8px 16px;
+  background-color: #0077ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.see-more:hover {
+  background-color: #005fcc;
+}
+.score-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f3f3f3;
+  margin: 10px 0;
+  padding: 10px 16px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.rank {
+  font-weight: bold;
+  margin-right: 10px;
+  color: #444;
+}
+
+.score-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.username {
+  font-size: 1rem;
+}
+
+.points {
+  color: #555;
+}
+
+.see-more {
+  margin-top: 12px;
+  background-color: #0077ff;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.see-more:hover {
+  background-color: #005fcc;
+  
+
+}
+.score-card {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Align content to the start */
+  background-color: #f3f3f3;
+  margin: 10px 0;
+  padding: 10px 16px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: relative; /* Ensure background image is positioned correctly */
+}
+
+.score-card:nth-child(1),
+.score-card:nth-child(2),
+.score-card:nth-child(3) {
+  background-size: 50px 50px; /* Adjust size of the medal */
+  background-repeat: no-repeat;
+  background-position: left center; /* Position image at the start */
+  padding-left: 70px; /* Add padding to avoid overlapping text */
+}
+/* General styles for score-card */
+.score-card {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #f3f3f3;
+  margin: 10px 0;
+  padding: 10px 16px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.medal {
+  width: 50px;
+  height: 50px;
+  margin-right: 15px; /* Add spacing between the medal and text */
+}
+
+.score-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.username {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.points {
+  color: #555;
+}
+
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+  .score-card {
+    flex-direction: column; /* Stack content vertically */
+    align-items: center; /* Center-align content */
+    padding: 15px;
+    text-align: center;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 250px;
+     /* Center-align text */
+  }
+
+  .medal {
+    margin-right: 0; /* Remove right margin */
+    margin-bottom: 10px; /* Add spacing below the medal */
+  }
+
+  .score-info {
+    align-items: center; /* Center-align score info */
+  }
+
+  .username {
+    font-size: 0.9rem; /* Adjust font size for smaller screens */
+  }
+
+  .points {
+    font-size: 0.8rem; /* Adjust font size for smaller screens */
+  }
+
+  .results {
+    max-width: 100%; /* Reduce width for smaller screens */
+    margin: 20px auto; /* Adjust margin */
+    padding: 15px;
+    
+  }
+
+  .score-list {
+    padding: 0;
+    margin: 10px 0;
+  }
+
+  .see-more {
+    width: 100%; /* Make the button full-width */
+    padding: 10px;
+    font-size: 0.9rem; /* Adjust font size */
+  }
+  .score{
+    flex-direction: column;
+   
+  }
+}
+
+.score{
+  flex-direction: column;
+}
+.results{
+width: 350px;
+}

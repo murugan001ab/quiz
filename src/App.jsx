@@ -1,167 +1,217 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-// import quetions from "./quetion.json"
-import { fetchQuestions, saveUserScore } from "./api";
+import { fetchQuestions, GetResult, saveUserScore } from "./api";
 
 function App() {
+  const [questions, setQuestions] = useState([]);
+  const [show, setShow] = useState(false);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [timer, setTimer] = useState(10);
+  const [score, setScore] = useState(0);
 
-const [quetions,setQuetions]=useState([])
-const [show,setShow]=useState(false)
-const [currentQuetion,setCurrentQuetion]=useState(0)
-const [timer,setTimer]=useState(10)
-const [score,setScore]=useState(0)
+  const [skip, setSkip] = useState([]);
+  const [name, setName] = useState("");
+  const [start, setStart] = useState(true);
 
-const [skip,setSkip]=useState([])
-const [skipValue,setSkipValue]=useState(0)
-const [name,setName]=useState("")
-const [Start,setStart]=useState(true)
+  const [timeLeft, setTimeLeft] = useState(10); // Total quiz time
+  const [results, setResults] = useState([]);
+  const [showAllResults, setShowAllResults] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [timeUp, setTimeUp] = useState(false); // to track if time has expired
 
-
-useEffect(() => {
-  async function loadQuestions() {
-    try {
-      const data = await fetchQuestions(); // Fetch questions
-      if (data) {
-        setQuetions(data); 
-        console.log(data)// Set questions if data is available
-      }
-    } catch (error) {
-      console.error("Error fetching questions:", error); // Log the error
-    }
-  }
-  loadQuestions();
-}, []);
-
-
-const handlySkip = () => {
-  setSkip((prevSkip) => [...prevSkip, currentQuetion]);
-  setSkipValue((c)=>c+currentQuetion);
-  // Add current question to the skip array
-  console.log([...skip, currentQuetion]); // Log the updated skip array
-  if (currentQuetion < quetions.length - 1) {
-    setCurrentQuetion((current) => current + 1); // Move to the next question
-    setTimer(10); // Reset the timer
-  }
-  else {
-    setShow(true); // Show the score if it's the last question
-  }
-};
-useEffect(()=>{
-
-  let interval;
-  if(timer > 0) {
-    interval = setInterval(() => {
-      setTimer((second) => second - 1);
-    }, 1000);
-
-  } else if (timer === 0) {
-
-    if(currentQuetion<quetions.length-1){
-    setCurrentQuetion((current) => current + 1);
-    setTimer(10);
-  }
-  else{
-    clearInterval(interval)
-    setShow(true)
-  }
-    
-  }
-
-  return () => clearInterval(interval);
-}, [timer, currentQuetion,skip]);
-
-const handleQution=(option)=>{
-
-  if(option==quetions[currentQuetion].correct_answer){
-    setCurrentQuetion((current)=>current+1)
-    setScore((score)=>(score+1))
-    setTimer(10)
-  }
-  if(option!=quetions[currentQuetion].correct_answer){
-    setCurrentQuetion((current)=>current+1)
-
-  }
-  if (currentQuetion==quetions.length-1){
-
-    async function setScore() {
+  // Fetch questions once
+  useEffect(() => {
+    async function loadQuestions() {
       try {
-        const data = await saveUserScore(name,score); // Fetch questions
+        const data = await fetchQuestions();
         if (data) {
-          // Set questions if data is available
-          console.log(data)
+          setQuestions(data);
+      
         }
       } catch (error) {
-        console.error("Error fetching questions:", error); // Log the error
+        console.error("Error fetching questions:", error);
       }
     }
-    setScore();
+    loadQuestions();
+  }, []);
 
-      setShow(true)
+  // Total quiz timer
+  useEffect(() => {
+    if (timeLeft > 0) {
+      const timerId = setInterval(() => setTimeLeft(prev => prev - 1), 1000);
+      setLoading(true)
+      return () => clearInterval(timerId);
+    }
+
+    if (timeLeft === 0) {
+      // saveUserScore(name, score)
+      // .then(() => console.log("Score saved"))
+      // .catch(err => console.error("Error saving score", err));
+    setShow(true);
+      setTimeUp(true); 
+      setLoading(false)// mark that quiz time is up
+    }
+  }, [timeLeft]);
+
+  // Per-question timer
+  useEffect(() => {
+    let interval;
+    if (timer > 0) {
+      interval = setInterval(() => {
+        setTimer(second => second - 1);
+      }, 1000);
+    } else if (timer === 0) {
+      if (currentQuestion < questions.length - 1) {
+        setCurrentQuestion(prev => prev + 1);
+        setTimer(10);
+      } else {
+        clearInterval(interval);
+        setShow(true);
+      }
+    }
+
+    return () => clearInterval(interval);
+  }, [timer, currentQuestion]);
+
+  const handleSkip = () => {
+    setSkip([...skip, currentQuestion]);
+    if (currentQuestion < questions.length-1) {
+      setCurrentQuestion(prev => prev + 1);
+      setTimer(10);
+    }
+    else if (currentQuestion === questions.length - 1) {
+      saveUserScore(name, score)
+        .then(() => console.log("Score saved"))
+        .catch(err => console.error("Error saving score", err));
+      setShow(true);
+    }
+  };
+
+  const handleQuestion = (option) => {
+    if (option === questions[currentQuestion].correct_answer) {
+      setScore(score + 1);
+    }
+
+    if (currentQuestion === questions.length - 1) {
+      saveUserScore(name, score)
+        .then(() => console.log("Score saved"))
+        .catch(err => console.error("Error saving score", err));
+      setShow(true);
+    } else {
+      setCurrentQuestion(prev => prev + 1);
+      setTimer(10);
+    }
+  };
+
+  const handleResult = async () => {
+    if (!timeUp) return; // prevent results before time is up
+
+    setLoading(true);
+    try {
+      const res = await GetResult();
+      setResults(res.data);
+      setShowAllResults(true);
+    } catch (error) {
+      console.error("Failed to fetch results", error);
+    }
+    setLoading(false);
+  };
+
+  const handleReset = (e) => {
 
     
-  }
-
-}
-
-const handlyReset=()=>{
-  setCurrentQuetion(0)
-  setScore(0)
-  setShow(false)
-  setTimer(10)
- 
-}
+    setCurrentQuestion(0);
+    setTimer(10);
+    setScore(0);
+    setShow(false);
+    setSkip([]);
+    setTimeLeft(100);
+    setTimeUp(false);
+    setShowAllResults(false);
+    setLoading(false);
+    
+  };
 
   return (
     <>
-    {Start ? (<>
-    <div className="enter">
-    <label htmlFor="name">Enter name</label>
-    <input type="text" onChange={(e)=>setName(e.target.value)} placeholder='Enter name' required />
-    <button className='start' onClick={()=>{
-      setStart(false)
-      handlyReset()
-    }}  >Start</button>import axios from "axios";
+      {start ? (
+        <div className="enter">
+          <label htmlFor="name">Enter name</label>
+          <input type="text" onChange={(e) => setName(e.target.value)} placeholder="Enter name" required />
+          <button className="start" onClick={() => {
+            setStart(false);
+            handleReset();
+          }}>Start</button>
+        </div>
+      ) : (
+        <>
+          {showAllResults ? (
+            <div className="results">
+            <h2>📊 Final Results</h2>
+            <ul className="score-list">
+  {results
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 3)
+    .map((res, index) => (
+      <li key={index} className="score-card">
+        <img
+          src={
+            index === 0
+              ? "/medal.png"
+              : index === 1
+              ? "/medal(1).png"
+              : "/medal(2).png"
+          }
+          alt="Medal"
+          className="medal"
+        />
+        <div className="score-info">
+          <strong className="username">{res.name.toUpperCase()}</strong>
+          <span className="points">{res.score} pts</span>
+        </div>
+      </li>
+    ))}
+</ul>
+            {/* <button onClick={handleReset} className="restart">Restart</button> */}
+          </div>
+          
+          ) : show ? (
+            <div className="score">
+              <p>Your score is {score}/{questions.length}</p>
 
-    const API_BASE_URL = "https://8c83-2409-40f4-1016-1319-ad64-b874-a409-9b93.ngrok-free.app";
-    // const API_BASE_URL = "http://127.0.0.1:8000"
-    // // Django API URL
-    
-    export const saveUserScore = async (name, score) => {
-      return axios.post(`${API_BASE_URL}/users/`, { name, score });
-    };
-    
-    export const fetchQuestions = async () => {
-      const response = await axios.get(`${API_BASE_URL}/questions/`);
-      return response.data;
-    };
-    
-    </div>
-    </>):(<>
-      {show ? (
-      <div className="score">
-      <p>your score is {score}/{quetions.length}</p>
-      <button onClick={handlyReset} className='restart' >restart</button>
-    </div>
-    ):(
-      <div className="quiz">
-      <div className="quetion">
-      <div className="q"><p>Quetion {quetions[currentQuetion].id}</p>
-      <h3>{quetions[currentQuetion].question_text}</h3></div>
-      <div className="option">
-      {quetions[currentQuetion].options.map((option,index)=>(
-        <button key={index} onClick={()=>handleQution(option)} >{option}</button>
-      ))}
-      </div>  
-      <p>Time left {timer}s</p>
-      {/* <button className='skip'onClick={handlySkip} >skip</button> */}
-   
-      </div>  
+              {!timeUp && <p className="info">
+                ⏳ Please wait until others finish {timeLeft}</p>}
 
-</div> 
-    )} 
-    </>)}    
+              <button
+                onClick={handleResult}
+                className="restart"
+                disabled={!timeUp || loading}
+              >
+                {loading ? "Loading..." : "See All Results"}
+              </button>
+            </div>
+          ) : (
+            <div className="quiz">
+              <div className="question">
+                <div className="q">
+                  <p>Question {questions[currentQuestion].id}</p>
+                  <h3>{questions[currentQuestion].question_text}</h3>
+                </div>
+                <div className="option">
+                  {questions[currentQuestion].options.map((option, index) => (
+                    <button key={index} onClick={() => handleQuestion(option)}>{option}</button>
+                  ))}
+                </div>
+                <p>⏳ Current Question Time: {timer}s</p>
+                {/* <p>🕔 Total Quiz Time Left: {timeLeft}s</p> */}
+                <button className="skip" onClick={handleSkip}>Skip</button>
+              </div>
+            </div>
+          )}
+        </>
+      )}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
