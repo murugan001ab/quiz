@@ -13,7 +13,7 @@ function App() {
   const [name, setName] = useState("");
   const [start, setStart] = useState(true);
 
-  const [timeLeft, setTimeLeft] = useState(10); // Total quiz time
+  const [timeLeft, setTimeLeft] = useState(15); // Total quiz time
   const [results, setResults] = useState([]);
   const [showAllResults, setShowAllResults] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -125,7 +125,7 @@ function App() {
     setScore(0);
     setShow(false);
     setSkip([]);
-    setTimeLeft(100);
+    setTimeLeft(150);
     setTimeUp(false);
     setShowAllResults(false);
     setLoading(false);
