@@ -6,14 +6,14 @@ function App() {
   const [questions, setQuestions] = useState([]);
   const [show, setShow] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [timer, setTimer] = useState(10);
+  const [timer, setTimer] = useState(15);
   const [score, setScore] = useState(0);
 
   const [skip, setSkip] = useState([]);
   const [name, setName] = useState("");
   const [start, setStart] = useState(true);
 
-  const [timeLeft, setTimeLeft] = useState(15); // Total quiz time
+  const [timeLeft, setTimeLeft] = useState(150); // Total quiz time
   const [results, setResults] = useState([]);
   const [showAllResults, setShowAllResults] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -63,7 +63,7 @@ function App() {
     } else if (timer === 0) {
       if (currentQuestion < questions.length - 1) {
         setCurrentQuestion(prev => prev + 1);
-        setTimer(10);
+        setTimer(15);
       } else {
         clearInterval(interval);
         setShow(true);
@@ -77,7 +77,7 @@ function App() {
     setSkip([...skip, currentQuestion]);
     if (currentQuestion < questions.length-1) {
       setCurrentQuestion(prev => prev + 1);
-      setTimer(10);
+      setTimer(15);
     }
     else if (currentQuestion === questions.length - 1) {
       saveUserScore(name, score)
@@ -99,7 +99,7 @@ function App() {
       setShow(true);
     } else {
       setCurrentQuestion(prev => prev + 1);
-      setTimer(10);
+      setTimer(15);
     }
   };
 
@@ -121,7 +121,7 @@ function App() {
 
     
     setCurrentQuestion(0);
-    setTimer(10);
+    setTimer(15);
     setScore(0);
     setShow(false);
     setSkip([]);
